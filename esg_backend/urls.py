@@ -19,9 +19,8 @@ from django.urls import path, re_path, include
 from rest_framework.routers import DefaultRouter
 from esg.views import CompanyViewSet, BusinessUnitViewSet, MetricViewSet
 from django.views.generic import TemplateView
-from esg import views 
-from esg import urls
-from django.urls import path
+
+from rest_framework_simplejwt.views import (TokenObtainPairView,TokenRefreshView, TokenVerifyView,)
 
 
 router = DefaultRouter()
@@ -30,6 +29,9 @@ router.register(r'business-units', BusinessUnitViewSet)
 router.register(r'metrics', MetricViewSet)
 
 urlpatterns = [
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/token/verify',  TokenVerifyView.as_view(), name='token_verify'),  # <-- Add this line
     path('admin/', admin.site.urls),
     path('api/', include('esg.urls')), 
     re_path(r'^(?!api/|admin/).*$', TemplateView.as_view(template_name="index.html")),

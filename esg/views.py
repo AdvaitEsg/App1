@@ -2,7 +2,6 @@ from rest_framework import viewsets
 from esg.models import Company, BusinessUnit, Metric
 from esg.serializers import CompanySerializer, BusinessUnitSerializer, MetricSerializer
 
-
 class CompanyViewSet(viewsets.ModelViewSet):
     queryset = Company.objects.all().order_by('-reporting_period')
     serializer_class = CompanySerializer
